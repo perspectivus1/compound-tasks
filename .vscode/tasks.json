@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "compoundtask1",
+            "type": "shell",
+            "command": "echo Running compoundtask1",
+            "dependsOn": ["task1"]
+        },
+        {
+            "label": "compoundtask2",
+            "type": "shell",
+            "command": "echo Running compoundtask2",
+            "dependsOn": ["task2"]
+        },
+        {
+            "label": "task1",
+            "type": "shell",
+            "command": "echo STARTED task1... && echo WATCHING task1... && echo FINISHED task1... && timeout 10 /nobreak && echo EXITING task1...",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+					"regexp": ""
+				},
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "STARTED task1",
+                    "endsPattern": "FINISHED task1"
+                }
+            }
+        },
+        {
+            "label": "task2",
+            "type": "shell",
+            "command": "echo STARTED task2... && echo WATCHING task2... && echo FINISHED task2... && timeout 10 /nobreak && echo EXITING task2...",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+					"regexp": ""
+				},
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "STARTED subtask2",
+                    "endsPattern": "nomatch"
+                }
+            }
+        }
+    ]
+}
